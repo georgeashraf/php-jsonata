@@ -3,8 +3,8 @@ declare (strict_types = 1);
 
 require_once "ast/tokens/Token.php";
 require_once "ast/tokens/Lexer.php";
-require_once "ast/tokens/TokenType.php";
-
+require_once "ast/tokens/enums.php";
+require_once "utils.php";
 
 class Pjson
 {
@@ -39,12 +39,11 @@ class Pjson
 // $e = "$";
 // $d = '{"key": "val"}';
 // $x = new Pjson($e, $d);
+$data = getDataSet('dataset1.json');
+// var_dump($data);
+
+// $resolved = resolveData($data, "FirstName");
+// var_dump($resolved);
 
 $lexer = new Lexer('$.club');
-$token = $lexer->getNextToken();
-var_dump($token);
-
-while ($token->type !== TokenType::Eof) {
-    $token = $lexer->getNextToken();
-    var_dump($token);
-}
+var_dump($lexer->getTokens());
