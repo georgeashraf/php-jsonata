@@ -4,6 +4,7 @@ declare (strict_types = 1);
 require_once "ast/tokens/Token.php";
 require_once "ast/tokens/Lexer.php";
 require_once "ast/tokens/enums.php";
+require_once "ast/parser/parser.php";
 require_once "utils.php";
 
 class Pjson
@@ -45,5 +46,5 @@ $data = getDataSet('dataset1.json');
 // $resolved = resolveData($data, "FirstName");
 // var_dump($resolved);
 
-$lexer = new Lexer('$.club');
-var_dump($lexer->getTokens());
+$lexer = new Lexer('$.FirstName');
+$parser = new Parser($lexer->getTokens());
