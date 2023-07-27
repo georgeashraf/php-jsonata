@@ -1,25 +1,27 @@
 <?php
 
-enum TokenType {
-    case Eof; // \0
-    case Identifier;
-    case Map; // .
-    case Plus; // +
-    case Minus; // -
-    case Root; // $
-    case LBracket; // [
-    case RBracket; // ]
-    case LBrace; // {
-    case RBrace; // }
-    case LParen; // (
-    case RParen; // )
-    case Colon; // :
-    case Concat; // &
-    case String; // "..."
-    case Number; // 1...99
-    case Assign; // :=
-    case LogicalOR; // or
-    case LogicalAnd; //and
+enum TokenType: string {
+    case Eof = 'Eof'; // \0
+    case Identifier = 'Identifier';
+    case Map = 'Map'; // .
+    case Plus = 'Plus'; // +
+    case Minus = 'Minus'; // -
+    case Multiply = 'Multiply'; // *
+    case Divide = 'Divide'; // /
+    case Root = 'Root'; // $
+    case LBracket = 'LBracket'; // [
+    case RBracket = 'RBracket'; // ]
+    case LBrace = 'LBrace'; // {
+    case RBrace = 'RBrace'; // }
+    case LParen = 'LParen'; // (
+    case RParen = 'RParen'; // )
+    case Colon = 'Colon'; // :
+    case Concat = 'Concat'; // &
+    case String = 'String'; // "..."
+    case Number = 'Number'; // 1...99
+    case Assign = 'Assign'; // :=
+    case LogicalOR = 'LogicalOR'; // or
+    case LogicalAnd = 'LogicalAnd'; //and
 
 }
 
@@ -43,6 +45,10 @@ const OperatorPrecedence = [
     "RParen" => 1,
     "LogicalOR" => 30,
     "LogicalAnd" => 40,
+    "Plus" => 60,
+    "Minus" => 60,
+    "Multiply" => 70,
+    "Divide" => 70,
     "LBrace" => 80,
     "Map" => 90,
     "LBracket" => 100,

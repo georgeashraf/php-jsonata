@@ -1,11 +1,13 @@
 <?php
+declare (strict_types = 1);
+require_once __DIR__ . "/../tokens/Token.php";
+require_once "Expression.php";
 
-
-readonly class IntegerExpression implements Expression
+class NumberExpression implements Expression
 {
     public function __construct(
         public Token $token,
-        public int $value
+        public string $value
     ) {
     }
 

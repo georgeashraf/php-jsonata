@@ -46,5 +46,7 @@ $data = getDataSet('dataset1.json');
 // $resolved = resolveData($data, "FirstName");
 // var_dump($resolved);
 
-$lexer = new Lexer('$.FirstName');
+$lexer = new Lexer('10 + 2*3 ');
+var_dump($lexer->getTokens());
 $parser = new Parser($lexer->getTokens());
+// var_dump($parser->AST);

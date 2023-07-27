@@ -3,18 +3,18 @@ declare (strict_types = 1);
 require_once "Token.php";
 require_once "enums.php";
 
-
 class Lexer
 {
     private int $cursorPosition; // cursor always points to next character
     private ?string $curChar;
     private array $tokens;
+    private string $src;
 
-    public function __construct(
-        public string $src,
-    ) {
+    public function __construct(string $src)
+    {
         $this->cursorPosition = 0;
         $this->tokens = [];
+        $this->src = trim($src);
         $this->readChar();
     }
     private function createToken(TokenType $type, string $literal): Token
@@ -45,6 +45,19 @@ class Lexer
         return substr($this->src, $position, $this->cursorPosition);
     }
 
+    private function readNumber(): string
+    {
+        $position = $this->cursorPosition - 1;
+        var_dump($position);
+        var_dump($this->curChar);
+
+        while (is_numeric($this->curChar)) {
+            $this->readChar();
+        }
+
+        return substr($this->src, $position, $this->cursorPosition);
+    }
+
     private function readChar(): void
     {
 
@@ -63,6 +76,24 @@ class Lexer
             case '$':
                 $token = $this->createToken(TokenType::Root, $this->curChar);
                 break;
+            case '(':
+                $token = $this->createToken(TokenType::LParen, $this->curChar);
+                break;
+            case ')':
+                $token = $this->createToken(TokenType::RParen, $this->curChar);
+                break;
+            case '+':
+                $token = $this->createToken(TokenType::Plus, $this->curChar);
+                break;
+            case '-':
+                $token = $this->createToken(TokenType::Minus, $this->curChar);
+                break;
+            case '*':
+                $token = $this->createToken(TokenType::Multiply, $this->curChar);
+                break;
+            case '/':
+                $token = $this->createToken(TokenType::Divid, $this->curChar);
+                break;
             case '.':
                 $token = $this->createToken(TokenType::Map, $this->curChar);
                 break;
@@ -73,6 +104,10 @@ class Lexer
         if ($this->isLetter($this->curChar)) {
             $identifier = $this->readIdentifier();
             return $this->createToken(TokenType::Identifier, $identifier);
+        }
+        if (is_numeric($this->curChar)) {
+            $num = $this->readNumber();
+            return $this->createToken(TokenType::Number, $num);
         }
 
         $this->readChar();

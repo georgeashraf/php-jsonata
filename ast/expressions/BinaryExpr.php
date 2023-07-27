@@ -1,6 +1,8 @@
 <?php
 declare(strict_types = 1);
+require_once __DIR__ . "/../tokens/Token.php";
 
+require_once "Expression.php";
 
 class BinaryExpression implements Expression
 {
